@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Registration Form</h2>
+
+        <form id="form">
+
+            <label>Name:</label>
+            <input type="text" id="name" placeholder="Enter your name">
+            <div class="error" id="nameerr"></div>
+
+            <label>Email:</label>
+            <input type="text" id="email" placeholder="Enter your email">
+            <div class="error" id="emailerr"></div>
+
+            <label>Password:</label>
+            <input type="password" id="password" placeholder="Enter password">
+            <div class="error" id="pwderr"></div>
+
+            <button type="submit" id="submitBtn" disabled>
+                Register
+            </button>
+
+            <p class="success" id="successMessage"></p>
+
+        </form>
+
+        <script>
+
+            let nameInput = document.getElementById("name")
+            let email = document.getElementById("email")
+            let password = document.getElementById("password")
+            let submitBtn = document.getElementById("submitBtn")
+            let form = document.getElementById("form")
+            let nameerr = document.getElementById("nameerr")
+            let emailerr = document.getElementById("emailerr")
+            let pwderr = document.getElementById("pwderr")
+            let sucessmgs = document.getElementById("successMessage")
+
+
+            const validateForm = () => {
+                let nameisvalid = nameInput.value.trim() !== "";
+                let emailformat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                let emailisvalid = false
+                let passwordisvalid = password.value.length >= 6;
+
+                nameerr.textContent = nameisvalid ? "" : "Please enter your name."
+                console.log()
+                if (emailformat.test(email.value.trim())) {
+                    emailerr.textContent = "";
+                    emailisvalid = true;
+                }
+                else {
+                    emailerr.textContent = "Please enter a valid mail address.";
+                }
+                pwderr.textContent = passwordisvalid ? "" : "Password must be at least 6 characters."
+
+                if (nameisvalid && emailisvalid && passwordisvalid) {
+                    submitBtn.disabled = false
+                }
+                else {
+                    submitBtn.disabled = true
+                }
+            }
+
+            // Real-time validation
+            nameInput.addEventListener("input", validateForm)
+            email.addEventListener("input", validateForm)
+            password.addEventListener("input", validateForm)
+
+            // Form submission
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                validateForm();
+
+                if (submitBtn.disabled==false) {
+                    sucessmgs.textContent = "Registration Form Already submitted";
+                    alert("Form submitted successfully!");
+                    submitBtn.disabled = true;
+                }
+            });
+
+        </script>
+    </div>
+</body>
+
+</html>
