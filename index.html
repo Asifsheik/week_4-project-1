@@ -84,8 +84,9 @@
                 validateForm();
 
                 if (submitBtn.disabled==false) {
-                    sucessmgs.textContent = "Registration Form Already submitted";
+                    sucessmgs.textContent = "Registration Already Done";
                     alert("Form submitted successfully!");
+                    form.reset()
                     submitBtn.disabled = true;
                 }
             });
